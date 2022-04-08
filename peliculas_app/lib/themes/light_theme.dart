@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LightTheme {
-  static final Color primary = Colors.blueAccent.shade700;
+  static final Color primary = Colors.blue.shade600;
   static const Color secundary = Colors.white;
   static const Color primaryText = Colors.black;
   static const Color secondaryText = Colors.white;
-  static final Color thirdText = Colors.grey.shade600;
+  static final Color thirdText = Colors.grey.shade700;
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
       primaryColor: primary,

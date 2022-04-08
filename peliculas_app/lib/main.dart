@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:peliculas_app/screens/screens.dart';
+import 'package:peliculas_app/themes/light_theme.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
         'home': ((context) => HomeScreen()),
         'details': ((context) => DetailsScreen()),
       },
+      theme: LightTheme.lightTheme,
     );
   }
 }
