@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:peliculas_app/themes/themes.dart';
+import 'package:peliculas_app/models/models.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class HomeScreen extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.grey.shade200),
-              width: MediaQuery.of(context).copyWith().size.width * 0.72,
+              width: MediaQuery.of(context).size.width * 0.72,
               height: 45,
               child: TextFormField(
                 autocorrect: true,
@@ -65,7 +67,7 @@ class HomeScreen extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: LightTheme.primary),
-              width: MediaQuery.of(context).copyWith().size.width * 0.15,
+              width: MediaQuery.of(context).size.width * 0.15,
               height: 45,
               child: TextButton(
                   onPressed: () => {},
@@ -79,12 +81,52 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
+    Widget sliderFilter() {
+      return Padding(
+          padding: EdgeInsets.symmetric(horizontal: horizontalAlign),
+          child: DefaultTabController(
+              initialIndex: 1,
+              length: HomeMenuOptions().options.length,
+              child: Column(
+                children: [
+                  TabBar(
+                      physics: const BouncingScrollPhysics(),
+                      isScrollable: true,
+                      tabs: [
+                        ...HomeMenuOptions()
+                            .options
+                            .map(((e) => Tab(
+                                  text: e,
+                                )))
+                            .toList()
+                      ],
+                      labelColor: LightTheme.primary,
+                      unselectedLabelColor: LightTheme.thirdText,
+                      indicator: const BoxDecoration(color: null)),
+                  SizedBox(
+                    height: 120,
+                    width: MediaQuery.of(context).size.width -
+                        (horizontalAlign * 2),
+                    child: const TabBarView(
+                      children: [
+                        Center(child: Text("data")),
+                        Center(child: Text("data")),
+                        Center(child: Text("data")),
+                        Center(child: Text("data")),
+                      ],
+                    ),
+                  )
+                ],
+              )));
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 60),
         child: Column(children: [
           welcomeSection(),
           searchSection(),
+          sliderFilter(),
           Row(
             children: [],
           ),
