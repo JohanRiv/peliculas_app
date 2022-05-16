@@ -6,6 +6,7 @@ class LightTheme {
   static const Color primaryText = Colors.black;
   static const Color secondaryText = Colors.white;
   static final Color thirdText = Colors.grey.shade700;
+  static final Color third = Colors.grey.shade400;
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
       primaryColor: primary,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:peliculas_app/themes/themes.dart';
 import 'package:peliculas_app/models/models.dart';
+import 'package:peliculas_app/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -83,9 +84,9 @@ class HomeScreen extends StatelessWidget {
 
     Widget sliderFilter() {
       return Padding(
-          padding: EdgeInsets.symmetric(horizontal: horizontalAlign),
+          padding: const EdgeInsets.symmetric(horizontal: 0),
           child: DefaultTabController(
-              initialIndex: 1,
+              initialIndex: 0,
               length: HomeMenuOptions().options.length,
               child: Column(
                 children: [
@@ -100,19 +101,20 @@ class HomeScreen extends StatelessWidget {
                                 )))
                             .toList()
                       ],
+                      labelStyle: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                       labelColor: LightTheme.primary,
                       unselectedLabelColor: LightTheme.thirdText,
                       indicator: const BoxDecoration(color: null)),
                   SizedBox(
-                    height: 120,
-                    width: MediaQuery.of(context).size.width -
-                        (horizontalAlign * 2),
+                    height: 360,
+                    width: MediaQuery.of(context).size.width,
                     child: const TabBarView(
                       children: [
-                        Center(child: Text("data")),
-                        Center(child: Text("data")),
-                        Center(child: Text("data")),
-                        Center(child: Text("data")),
+                        Center(child: CardSwiperWidget()),
+                        Center(child: CardSwiperWidget()),
+                        Center(child: CardSwiperWidget()),
+                        Center(child: CardSwiperWidget()),
                       ],
                     ),
                   )
@@ -120,20 +122,49 @@ class HomeScreen extends StatelessWidget {
               )));
     }
 
+    Widget recomendationsRow() {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: horizontalAlign),
+        child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Recomendations',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              TextButton(
+                  onPressed: () => {},
+                  child: Text('See all',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: LightTheme.primary)))
+            ],
+          ),
+          SizedBox(
+              height: 360,
+              width: MediaQuery.of(context).size.width,
+              child: ListMoviesWidget())
+        ]),
+      );
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 60),
-        child: Column(children: [
-          welcomeSection(),
-          searchSection(),
-          sliderFilter(),
-          Row(
-            children: [],
-          ),
-          Row(
-            children: [],
-          ),
-          Column()
+        child: ListView(children: [
+          Column(children: [
+            welcomeSection(),
+            searchSection(),
+            sliderFilter(),
+            recomendationsRow(),
+            Row(
+              children: [],
+            ),
+            Row(
+              children: [],
+            ),
+            Column()
+          ]),
         ]),
       ),
     );
