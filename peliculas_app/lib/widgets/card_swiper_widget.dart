@@ -43,15 +43,20 @@ class CardSwiperWidget extends StatelessWidget {
           scale: 0.8,
           outer: false,
           itemBuilder: (BuildContext context, int index) {
-            return Card(
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)),
-              child: const FadeInImage(
-                  fadeInDuration: Duration(milliseconds: 300),
-                  fit: BoxFit.fill,
-                  placeholder: AssetImage('assets/images/gray_background.jpg'),
-                  image: NetworkImage('https://via.placeholder.com/300x400')),
+            return GestureDetector(
+              onTap: () => Navigator.pushNamed(context, 'details',
+                  arguments: 'movie-taped'),
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+                child: const FadeInImage(
+                    fadeInDuration: Duration(milliseconds: 300),
+                    fit: BoxFit.fill,
+                    placeholder:
+                        AssetImage('assets/images/gray_background.jpg'),
+                    image: NetworkImage('https://via.placeholder.com/300x400')),
+              ),
             );
           },
         ),
