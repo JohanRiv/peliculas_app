@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_app/themes/themes.dart';
+import 'package:peliculas_app/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({Key? key}) : super(key: key);
@@ -10,12 +11,13 @@ class DetailsScreen extends StatelessWidget {
         ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
 
     return Scaffold(
+        backgroundColor: Colors.white,
         body: CustomScrollView(
-      slivers: [
-        _CustomAppBar(),
-        SliverList(delegate: SliverChildListDelegate([_ListMovieContent()]))
-      ],
-    ));
+          slivers: [
+            _CustomAppBar(),
+            SliverList(delegate: SliverChildListDelegate([_ListMovieContent()]))
+          ],
+        ));
   }
 }
 
@@ -47,6 +49,9 @@ class _ListMovieContent extends StatelessWidget {
     String movieProdutor = "Productor";
     String movieLaunchDate = "10-10-2020";
     String movieStars = "8.0";
+    String movieDescription =
+        "hdfsd iuhfsidhf sddifsdiofs sdifhjsoidhfos iodshfos idshjisodfhoi hiodfshiosdfh iosdhfiohsdiofh ioh ifshiodhfio shiofhusidhf odshf oi";
+    String movieCredits = "asdasd";
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -132,37 +137,69 @@ class _ListMovieContent extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: LightTheme.primary),
-                width: 150,
-                height: 45,
-                child: TextButton(
-                    onPressed: () => {},
-                    child: Text("Description"),
-                    style: TextButton.styleFrom(
-                      primary: LightTheme.secundary,
-                    )),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: LightTheme.secundary),
-                width: 150,
-                height: 45,
-                child: TextButton(
-                    onPressed: () => {},
-                    child: Text("Stars"),
-                    style: TextButton.styleFrom(
-                      primary: LightTheme.primaryText,
-                    )),
-              ),
-            ],
-          )
+          DefaultTabController(
+              initialIndex: 0,
+              length: 2,
+              child: Column(
+                children: [
+                  TabBar(
+                      physics: const BouncingScrollPhysics(),
+                      isScrollable: true,
+                      tabs: [
+                        Tab(
+                          child: Container(
+                            width: 130,
+                            height: 45,
+                            child: const Center(child: Text("Description")),
+                          ),
+                        ),
+                        Tab(
+                          child: Container(
+                            width: 120,
+                            height: 45,
+                            child: const Center(child: Text("Casting")),
+                          ),
+                        ),
+                      ],
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelStyle: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                      labelColor: LightTheme.secundary,
+                      unselectedLabelColor: LightTheme.primaryText,
+                      indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: LightTheme.primary)),
+                  SizedBox(
+                    height: 360,
+                    width: MediaQuery.of(context).size.width,
+                    child: TabBarView(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              movieDescription,
+                              textAlign: TextAlign.justify,
+                            )
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CastingSwiperWidget()
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ))
         ],
       ),
     );

@@ -9,7 +9,7 @@ class CardSwiperWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    String movieStars = "8.0";
+    final String movieStars = "8.0";
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -54,6 +54,7 @@ class CardSwiperWidget extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50)),
                     child: const FadeInImage(
+                        height: 310,
                         fadeInDuration: Duration(milliseconds: 300),
                         fit: BoxFit.fill,
                         placeholder:
@@ -68,8 +69,8 @@ class CardSwiperWidget extends StatelessWidget {
                             bottomRight: Radius.circular(50),
                             topLeft: Radius.circular(50))),
                     child: Container(
-                      width: 60,
-                      height: 90,
+                      width: 70,
+                      height: 120,
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
