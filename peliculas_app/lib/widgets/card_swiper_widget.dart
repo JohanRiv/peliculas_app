@@ -9,6 +9,7 @@ class CardSwiperWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    String movieStars = "8.0";
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -44,20 +45,50 @@ class CardSwiperWidget extends StatelessWidget {
           outer: false,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
-              onTap: () => Navigator.pushNamed(context, 'details',
-                  arguments: 'movie-taped'),
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-                child: const FadeInImage(
-                    fadeInDuration: Duration(milliseconds: 300),
-                    fit: BoxFit.fill,
-                    placeholder:
-                        AssetImage('assets/images/gray_background.jpg'),
-                    image: NetworkImage('https://via.placeholder.com/300x400')),
-              ),
-            );
+                onTap: () => Navigator.pushNamed(context, 'details',
+                    arguments: 'movie-taped'),
+                child:
+                    Stack(alignment: AlignmentDirectional.bottomEnd, children: [
+                  Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: const FadeInImage(
+                        fadeInDuration: Duration(milliseconds: 300),
+                        fit: BoxFit.fill,
+                        placeholder:
+                            AssetImage('assets/images/gray_background.jpg'),
+                        image: NetworkImage(
+                            'https://via.placeholder.com/300x400')),
+                  ),
+                  Card(
+                    color: Colors.black,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(50),
+                            topLeft: Radius.circular(50))),
+                    child: Container(
+                      width: 60,
+                      height: 90,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.amber.shade400,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              movieStars,
+                              style: const TextStyle(
+                                  color: LightTheme.secondaryText),
+                            )
+                          ]),
+                    ),
+                  ),
+                ]));
           },
         ),
       ),
