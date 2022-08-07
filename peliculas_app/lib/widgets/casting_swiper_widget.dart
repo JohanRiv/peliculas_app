@@ -41,7 +41,7 @@ class CastCards extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        Text(
+        const Text(
           "Name asd afasfdas asfafs asdasd",
           overflow: TextOverflow.ellipsis,
           maxLines: 2,

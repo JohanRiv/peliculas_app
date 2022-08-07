@@ -1,13 +1,13 @@
 // To parse this JSON data, do
 //
-//     final nowPlayingResponseModel = nowPlayingResponseModelFromMap(jsonString);
+//     final upComingResponseModel = upComingResponseModelFromMap(jsonString);
 
 import 'dart:convert';
 
 import 'package:peliculas_app/models/models.dart';
 
-class NowPlayingResponseModel {
-  NowPlayingResponseModel({
+class UpComingResponseModel {
+  UpComingResponseModel({
     required this.dates,
     required this.page,
     required this.results,
@@ -21,11 +21,11 @@ class NowPlayingResponseModel {
   int totalPages;
   int totalResults;
 
-  factory NowPlayingResponseModel.fromJson(String str) =>
-      NowPlayingResponseModel.fromMap(json.decode(str));
+  factory UpComingResponseModel.fromJson(String str) =>
+      UpComingResponseModel.fromMap(json.decode(str));
 
-  factory NowPlayingResponseModel.fromMap(Map<String, dynamic> json) =>
-      NowPlayingResponseModel(
+  factory UpComingResponseModel.fromMap(Map<String, dynamic> json) =>
+      UpComingResponseModel(
         dates: Dates.fromMap(json["dates"]),
         page: json["page"],
         results: List<Movie>.from(json["results"].map((x) => Movie.fromMap(x))),

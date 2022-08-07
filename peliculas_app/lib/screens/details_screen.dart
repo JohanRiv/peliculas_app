@@ -7,9 +7,8 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String movie =
-        ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
-
+    final movie = ModalRoute.of(context)?.settings.arguments;
+    print(movie);
     return Scaffold(
         backgroundColor: Colors.white,
         body: CustomScrollView(

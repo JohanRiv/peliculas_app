@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas_app/providers/movies_provider.dart';
 
 import 'package:peliculas_app/themes/themes.dart';
 import 'package:peliculas_app/models/models.dart';
 import 'package:peliculas_app/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    MoviesProvider moviesProvider =
+        Provider.of<MoviesProvider>(context, listen: true);
     double horizontalAlign = 20;
 
     Widget welcomeSection() {
@@ -109,12 +113,17 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 360,
                     width: MediaQuery.of(context).size.width,
-                    child: const TabBarView(
+                    child: TabBarView(
                       children: [
-                        Center(child: CardSwiperWidget()),
-                        Center(child: CardSwiperWidget()),
-                        Center(child: CardSwiperWidget()),
-                        Center(child: CardSwiperWidget()),
+                        Center(
+                            child: CardSwiperWidget(
+                                movies: moviesProvider.popularMovieList)),
+                        Center(
+                            child: CardSwiperWidget(
+                                movies: moviesProvider.topReatedMovieList)),
+                        Center(
+                            child: CardSwiperWidget(
+                                movies: moviesProvider.upComingMovieList)),
                       ],
                     ),
                   )
@@ -143,7 +152,7 @@ class HomeScreen extends StatelessWidget {
           SizedBox(
               height: 360,
               width: MediaQuery.of(context).size.width,
-              child: ListMoviesWidget())
+              child: ListMoviesWidget(movies: moviesProvider.movieList))
         ]),
       );
     }
