@@ -9,79 +9,75 @@ class MoviesProvider extends ChangeNotifier {
   final String _lenguage = "en-Us";
 
   List<Movie> movieList = [];
+  List<Movie> movieInfiniteList = [];
   List<Movie> popularMovieList = [];
   List<Movie> topReatedMovieList = [];
   List<Movie> upComingMovieList = [];
   MovieDetails? movieDetails = null;
+  String body = "";
+  int incrementalPage = 0;
 
   MoviesProvider() {
     getOnDisplayMovies();
     getPopularMovies();
     getTopReatedtMovies();
     getUpCommingMovies();
+    getOnDisplayInfiniteMovies();
+  }
+
+  _movieRequest(String endPoint, [String page = "1"]) async {
+    var url = Uri.https(_baseURL, endPoint,
+        {'api_key': _apiKey, 'lenguaje': _lenguage, 'page': page});
+    final response = await http.get(url);
+    body = response.body;
   }
 
   getMovieDetails(String idMovie) async {
-    var url = Uri.https(_baseURL, '/3/movie/' + idMovie, {
-      'api_key': _apiKey,
-      'lenguaje': _lenguage,
-    });
-
-    final response = await http.get(url);
-    final movieDetailsResponse = MovieDetails.fromJson(response.body);
+    String endPoint = '/3/movie/' + idMovie;
+    await _movieRequest(endPoint);
+    final movieDetailsResponse = MovieDetails.fromJson(body);
     movieDetails = movieDetailsResponse;
     notifyListeners();
   }
 
   getPopularMovies() async {
-    var url = Uri.https(_baseURL, '/3/movie/popular', {
-      'api_key': _apiKey,
-      'lenguaje': _lenguage,
-      'page': '1',
-    });
-
-    final response = await http.get(url);
-    final popularResponse = PopularResponseModel.fromJson(response.body);
+    String endPoint = '/3/movie/popular';
+    await _movieRequest(endPoint);
+    final popularResponse = PopularResponseModel.fromJson(body);
     popularMovieList = popularResponse.results;
     notifyListeners();
   }
 
   getTopReatedtMovies() async {
-    var url = Uri.https(_baseURL, '/3/movie/top_rated', {
-      'api_key': _apiKey,
-      'lenguaje': _lenguage,
-      'page': '1',
-    });
-
-    final response = await http.get(url);
-    final topReatedResponse = TopReatedResponseModel.fromJson(response.body);
+    String endPoint = '/3/movie/top_rated';
+    await _movieRequest(endPoint);
+    final topReatedResponse = TopReatedResponseModel.fromJson(body);
     topReatedMovieList = topReatedResponse.results;
     notifyListeners();
   }
 
   getUpCommingMovies() async {
-    var url = Uri.https(_baseURL, '/3/movie/upcoming', {
-      'api_key': _apiKey,
-      'lenguaje': _lenguage,
-      'page': '1',
-    });
-
-    final response = await http.get(url);
-    final upComingResponse = TopReatedResponseModel.fromJson(response.body);
+    String endPoint = '/3/movie/upcoming';
+    await _movieRequest(endPoint);
+    final upComingResponse = TopReatedResponseModel.fromJson(body);
     upComingMovieList = upComingResponse.results;
     notifyListeners();
   }
 
   getOnDisplayMovies() async {
-    var url = Uri.https(_baseURL, '/3/movie/now_playing', {
-      'api_key': _apiKey,
-      'lenguaje': _lenguage,
-      'page': '1',
-    });
-
-    final response = await http.get(url);
-    final nowPlayingResponse = NowPlayingResponseModel.fromJson(response.body);
+    String endPoint = '/3/movie/now_playing';
+    await _movieRequest(endPoint);
+    final nowPlayingResponse = NowPlayingResponseModel.fromJson(body);
     movieList = nowPlayingResponse.results;
+    notifyListeners();
+  }
+
+  getOnDisplayInfiniteMovies() async {
+    String endPoint = '/3/movie/now_playing';
+    incrementalPage++;
+    await _movieRequest(endPoint, incrementalPage.toString());
+    final nowPlayingResponse = NowPlayingResponseModel.fromJson(body);
+    movieInfiniteList = [...movieInfiniteList, ...nowPlayingResponse.results];
     notifyListeners();
   }
 }

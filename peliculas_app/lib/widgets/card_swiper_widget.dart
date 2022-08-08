@@ -42,42 +42,15 @@ class CardSwiperWidget extends StatelessWidget {
           width: size.width,
           height: 320,
           child: Swiper(
-            // pagination: SwiperCustomPagination(
-            //     builder: (BuildContext context, SwiperPluginConfig config) {
-            //   Widget child = Container(
-            //       child: PageIndicator(
-            //     count: movies.isEmpty ? 1 : 4,
-            //     controller: config.pageController!,
-            //     layout: config.indicatorLayout,
-            //     size: 10,
-            //     activeColor: LightTheme.primary,
-            //     color: LightTheme.third,
-            //     space: 3,
-            //   ));
-            //   if (!config.outer!) {
-            //     child = Align(
-            //       key: key,
-            //       alignment: Alignment.bottomCenter,
-            //       child: Padding(
-            //         padding: const EdgeInsets.only(top: 340),
-            //         child: child,
-            //       ),
-            //     );
-            //   }
-            //   return child;
-            // }),
             itemCount: movies.length,
             viewportFraction: 0.5,
             scale: 0.8,
             outer: false,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
-                  onTap: () async {
-                    moviesProvider.getMovieDetails(movies[index].id.toString());
-                    final movie = moviesProvider.movieDetails;
-                    print(movie!.originalTitle);
-                    await Navigator.pushNamed(context, 'details',
-                        arguments: {"title": movie.originalTitle});
+                  onTap: () {
+                    Navigator.pushNamed(context, 'details',
+                        arguments: movies[index]);
                   },
                   child: Stack(
                       alignment: AlignmentDirectional.bottomEnd,

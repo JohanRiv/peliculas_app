@@ -141,7 +141,9 @@ class HomeScreen extends StatelessWidget {
               const Text('Recomendations',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               TextButton(
-                  onPressed: () => {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "recomendationList");
+                  },
                   child: Text('See all',
                       style: TextStyle(
                           fontSize: 16,
@@ -166,13 +168,6 @@ class HomeScreen extends StatelessWidget {
             searchSection(),
             sliderFilter(),
             recomendationsRow(),
-            Row(
-              children: [],
-            ),
-            Row(
-              children: [],
-            ),
-            Column()
           ]),
         ]),
       ),

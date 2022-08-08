@@ -3,14 +3,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:peliculas_app/models/models.dart';
 
-class ListMoviesWidget extends StatelessWidget {
-  ListMoviesWidget({Key? key, required this.movies}) : super(key: key);
+class InfiniteListMoviesWidget extends StatefulWidget {
+  final List<Movie> movies;
+  final Function nextPage;
 
-  List<Movie> movies = [];
+  const InfiniteListMoviesWidget(
+      {Key? key, required this.movies, required this.nextPage})
+      : super(key: key);
+
+  @override
+  _InfiniteListMoviesWidgetState createState() =>
+      _InfiniteListMoviesWidgetState();
+}
+
+class _InfiniteListMoviesWidgetState extends State<InfiniteListMoviesWidget> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          (scrollController.position.maxScrollExtent - 300)) {
+        print("Pre");
+        print(widget.movies.length.toString());
+        widget.nextPage();
+        print("Post");
+        print(widget.movies.length.toString());
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (movies.isEmpty) {
+    if (widget.movies.isEmpty) {
       return Container(
         width: double.infinity,
         child: Center(
@@ -25,21 +56,23 @@ class ListMoviesWidget extends StatelessWidget {
     } else {
       return SizedBox(
         child: ListView.builder(
-            itemCount: movies.length,
+            physics: const BouncingScrollPhysics(),
+            controller: scrollController,
+            itemCount: widget.movies.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: (() => Navigator.pushNamed(context, 'details',
-                    arguments: movies[index])),
+                    arguments: widget.movies[index])),
                 child: Card(
-                  elevation: 3,
+                  elevation: 0,
                   child: ListTile(
                       title: Text(
-                        movies[index].title,
+                        widget.movies[index].title,
                         overflow: TextOverflow.ellipsis,
                       ),
                       subtitle: Text(
                           "Release Date: " +
-                              movies[index].releaseDate.toString(),
+                              widget.movies[index].releaseDate.toString(),
                           overflow: TextOverflow.ellipsis),
                       leading: Card(
                         clipBehavior: Clip.antiAlias,
@@ -47,12 +80,13 @@ class ListMoviesWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5)),
                         child: FadeInImage(
                             width: 50,
-                            height: 50,
+                            height: 90,
                             fadeInDuration: const Duration(milliseconds: 300),
                             fit: BoxFit.fill,
                             placeholder: const AssetImage(
                                 'assets/images/gray_background.jpg'),
-                            image: NetworkImage(movies[index].fullPathImg)),
+                            image:
+                                NetworkImage(widget.movies[index].fullPathImg)),
                       ),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +95,7 @@ class ListMoviesWidget extends StatelessWidget {
                           const SizedBox(
                             height: 3,
                           ),
-                          Text(movies[index].voteAverage.toString())
+                          Text(widget.movies[index].voteAverage.toString())
                         ],
                       )),
                   margin: const EdgeInsets.only(bottom: 20),

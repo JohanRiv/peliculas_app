@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'home': ((context) => HomeScreen()),
         'details': ((context) => DetailsScreen()),
+        'recomendationList': ((context) => RecomendationListScreen()),
       },
       theme: LightTheme.lightTheme,
     );
