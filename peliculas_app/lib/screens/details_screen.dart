@@ -9,7 +9,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final movie = ModalRoute.of(context)?.settings.arguments as Movie;
-
+    print(movie);
     return Scaffold(
         backgroundColor: Colors.white,
         body: CustomScrollView(
@@ -152,11 +152,13 @@ class DetailsScreen extends StatelessWidget {
                                   ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    children: const [
-                                      SizedBox(
+                                    children: [
+                                      const SizedBox(
                                         height: 20,
                                       ),
-                                      CastingSwiperWidget()
+                                      CastingSwiperWidget(
+                                        movieId: movie.id,
+                                      )
                                     ],
                                   ),
                                 ],

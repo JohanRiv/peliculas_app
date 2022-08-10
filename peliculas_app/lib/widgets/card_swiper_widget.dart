@@ -33,8 +33,6 @@ class CardSwiperWidget extends StatelessWidget {
         ),
       );
     } else {
-      MoviesProvider moviesProvider =
-          Provider.of<MoviesProvider>(context, listen: false);
       final size = MediaQuery.of(context).size;
 
       return Scaffold(

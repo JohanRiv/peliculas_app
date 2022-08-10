@@ -6,3 +6,4 @@ export 'package:peliculas_app/models/popular_response_model.dart';
 export 'package:peliculas_app/models/up_coming_response_model.dart';
 export 'package:peliculas_app/models/dates_model.dart';
 export 'package:peliculas_app/models/movie_details_response_model.dart';
+export 'package:peliculas_app/models/movie_casting_response_model.dart';

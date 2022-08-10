@@ -13,7 +13,9 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> popularMovieList = [];
   List<Movie> topReatedMovieList = [];
   List<Movie> upComingMovieList = [];
-  MovieDetails? movieDetails = null;
+
+  Map<int, List<Cast>> castMap = {};
+
   String body = "";
   int incrementalPage = 0;
 
@@ -32,12 +34,25 @@ class MoviesProvider extends ChangeNotifier {
     body = response.body;
   }
 
-  getMovieDetails(String idMovie) async {
-    String endPoint = '/3/movie/' + idMovie;
-    await _movieRequest(endPoint);
-    final movieDetailsResponse = MovieDetails.fromJson(body);
-    movieDetails = movieDetailsResponse;
-    notifyListeners();
+  Future<List<Cast>> getMovieCasting(int movieId) async {
+    String endPoint = '/3/movie/$movieId/credits';
+    var url = Uri.https(
+        _baseURL, endPoint, {'api_key': _apiKey, 'lenguaje': _lenguage});
+    if (castMap.isEmpty) {
+      final response = await http.get(url);
+      final movieCastList =
+          MovieCastingResponseModel.fromJson(response.body).cast;
+      castMap[movieId] = movieCastList;
+      return movieCastList;
+    } else if (castMap.containsKey(movieId)) {
+      return castMap[movieId] as List<Cast>;
+    } else {
+      final response = await http.get(url);
+      final movieCastList =
+          MovieCastingResponseModel.fromJson(response.body).cast;
+      castMap[movieId] = movieCastList;
+      return movieCastList;
+    }
   }
 
   getPopularMovies() async {
