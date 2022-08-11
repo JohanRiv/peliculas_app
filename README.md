@@ -6,11 +6,11 @@ The project design is inspire from Netflix Movie Apps Design by Zanuar Renaldie 
 
 <img width="388" alt="image" src="https://user-images.githubusercontent.com/39147964/184068380-a36a29d7-37fd-47cd-9bde-d7e7b49dc760.png">
 
-<img width="388" alt="image" src="https://user-images.githubusercontent.com/39147964/184068413-84ab86ff-1efd-407b-abe0-9eb22476514b.png">
+<img width="390" alt="Captura de Pantalla 2022-08-11 a la(s) 12 13 05 a m" src="https://user-images.githubusercontent.com/39147964/184068587-b33dfd83-04ad-45c9-b88d-6b84f2753281.png">
 
-<img width="388" alt="image" src="https://user-images.githubusercontent.com/39147964/184068441-06ad4bb2-5d5a-43b4-8464-17f9835c2c87.png">
+<img width="387" alt="Captura de Pantalla 2022-08-11 a la(s) 12 13 24 a m" src="https://user-images.githubusercontent.com/39147964/184068601-f015a911-51c9-437e-a900-75d563991c9e.png">
 
-<img width="388" alt="image" src="https://user-images.githubusercontent.com/39147964/184068474-99dc573e-008d-47e0-931c-a5ea5c3ebb79.png">
+<img width="390" alt="Captura de Pantalla 2022-08-11 a la(s) 12 13 47 a m" src="https://user-images.githubusercontent.com/39147964/184068614-1e175686-09c3-4cb4-b784-434b9ebd3457.png">
 
 ## Getting Started
 
