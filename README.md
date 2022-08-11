@@ -14,4 +14,4 @@ The project design is inspire from Netflix Movie Apps Design by Zanuar Renaldie 
 
 ## Getting Started
 
-For use this project is necsessary import on the yaml the provider and http from pub.dev and create a account on The Movie DB for the API Key.
+For use this project is necessary import on the pubspec.yaml the provider and http from pub.dev and create a account on The Movie DB for the API Key.
