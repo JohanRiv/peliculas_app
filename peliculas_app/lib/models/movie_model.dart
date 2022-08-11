@@ -35,7 +35,7 @@ class Movie {
 
   get fullPathImg {
     return posterPath == null
-        ? "https://via.placeholder.com/150x300"
+        ? "https://i.stack.imgur.com/GNhx0.png"
         : "https://image.tmdb.org/t/p/w500/" + posterPath!;
   }
 

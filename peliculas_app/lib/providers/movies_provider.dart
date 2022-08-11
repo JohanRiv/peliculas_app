@@ -18,6 +18,7 @@ class MoviesProvider extends ChangeNotifier {
 
   String body = "";
   int incrementalPage = 0;
+  int incrementalSearchPage = 0;
 
   MoviesProvider() {
     getOnDisplayMovies();
@@ -34,10 +35,23 @@ class MoviesProvider extends ChangeNotifier {
     body = response.body;
   }
 
+  Future<List<Movie>> getSearchResult(String query) async {
+    String endPoint = '/3/search/movie';
+    var url = Uri.https(_baseURL, endPoint, {
+      'api_key': _apiKey,
+      'lenguage': _lenguage,
+      'include_adult': 'false',
+      'query': query
+    });
+    final response = await http.get(url);
+    final searchMovieResult = SearchMovieResponseModel.fromJson(response.body);
+    return searchMovieResult.results;
+  }
+
   Future<List<Cast>> getMovieCasting(int movieId) async {
     String endPoint = '/3/movie/$movieId/credits';
     var url = Uri.https(
-        _baseURL, endPoint, {'api_key': _apiKey, 'lenguaje': _lenguage});
+        _baseURL, endPoint, {'api_key': _apiKey, 'lenguage': _lenguage});
     if (castMap.isEmpty) {
       final response = await http.get(url);
       final movieCastList =

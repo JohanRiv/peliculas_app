@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas_app/helpers/helpers.dart';
 import 'package:peliculas_app/providers/movies_provider.dart';
 
 import 'package:peliculas_app/themes/themes.dart';
@@ -55,6 +56,9 @@ class HomeScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.72,
               height: 45,
               child: TextFormField(
+                onTap: () => showSearch(
+                    context: context, delegate: MovieSearchDelegate()),
+                readOnly: true,
                 autocorrect: true,
                 autofocus: false,
                 keyboardType: TextInputType.text,
